@@ -1,0 +1,67 @@
+<div xmlns:th="http://www.thymeleaf.org" ng-controller="CardEditController">
+    <section class="content-header">
+        <h4 th:text="#{view.card.editor.title}"></h4>
+    </section>
+
+    <div class="col-sm-12">
+        <div class="btn-toolbar" role="toolbar" aria-label="...">
+            <div class="btn-group" role="group" aria-label="...">
+                <button type="button" class="btn btn-default" ng-click="addNewField()" title="Add field">
+                    <i class="fa fa-lg fa-plus-circle"></i>
+                </button>
+                <button type="button" class="btn btn-default" ng-click="removeField()" title="Remove field">
+                    <i class="fa fa-lg fa-minus-circle"></i>
+                </button>
+            </div>
+        </div>
+
+        <!--  th:text="#{view.card.editor.default}" -->
+        <div id="cardWrapId" class="card-wrap">
+            <div ng-repeat="field in newCard.fields" class="draggable text-field" ng-mousedown="selectField(field)"
+                 data-top="{{field.posTop}}" data-left="{{field.posLeft}}" ng-style="{'font-size': field.fontSize, color: field.color}">
+                {{field.title}}: {{field.value}}
+            </div>
+
+            <div id="cardBodyId" class="dropzone card-body" data-ajax="false" data-ghost="false" data-canvas="true">
+
+                <input type="file" name="thumb"/>
+            </div>
+        </div>
+        <br/>
+        <div class="col-sm-12 col-md-5 field-editor" ng-hide="activeField == null" style="border: 1px solid red;">
+            <h4>Редактор поля</h4>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <span class="col-md-4">Название</span>
+                    <div class="col-md-7">
+                        <input type="text" class="form-control input-sm" title="" ng-model="activeField.title">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-md-4">Значение</span>
+                    <div class="col-md-7">
+                        <input type="text" class="form-control input-sm" title="" ng-model="activeField.value">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-md-4">Размер шрифта</span>
+                    <div class="col-md-7">
+                        <input id="ex1" data-slider-id='ex1Slider' type="text" ng-model="activeField.fontSize"
+                                data-slider-min="8" data-slider-max="20" data-slider-step="1"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <span class="col-md-4">Цвет</span>
+                    <div class="col-md-7">
+                        <div id="selectedFieldColorId" class="input-group">
+                            <input type="text" class="form-control input-sm" title="" ng-model="activeField.color">
+                            <span class="input-group-addon">
+                                <i ng-style="{'background-color': activeField.color}"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
